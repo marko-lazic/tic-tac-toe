@@ -1,6 +1,18 @@
+use crate::errors::TicTacToeError;
 use anchor_lang::prelude::*;
+use crate::state::game::*;
 
-use crate::state::game::Game;
+pub fn play(ctx: Context<Play>, tile: Tile) -> Result<()> {
+    let game = &mut ctx.accounts.game;
+
+    require_keys_eq!(
+        game.current_player(),
+        ctx.accounts.player.key(),
+        TicTacToeError::NotPlayersTurn
+    );
+
+    game.play(&tile)
+}
 
 #[derive(Accounts)]
 pub struct Play<'info> {

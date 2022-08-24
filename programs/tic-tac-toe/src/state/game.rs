@@ -1,9 +1,7 @@
-use anchor_lang::prelude::*;
-use num_derive::{FromPrimitive, ToPrimitive};
-use num_traits::cast::*;
-
 use crate::errors::TicTacToeError;
-
+use anchor_lang::prelude::*;
+use num_derive::*;
+use num_traits::*;
 
 #[account]
 pub struct Game {
@@ -11,21 +9,6 @@ pub struct Game {
     turn: u8,                      // 1
     board: [[Option<Sign>; 3]; 3], // 9 * (1 + 1) = 18
     state: GameState,              // 32 + 1
-}
-
-#[derive(AnchorSerialize, AnchorDeserialize, Clone, PartialEq, Eq)]
-pub enum GameState {
-    Active,
-    Tie,
-    Won { winner: Pubkey },
-}
-
-#[derive(
-    AnchorSerialize, AnchorDeserialize, FromPrimitive, ToPrimitive, Copy, Clone, PartialEq, Eq,
-)]
-pub enum Sign {
-    X,
-    O,
 }
 
 impl Game {
@@ -126,6 +109,21 @@ impl Game {
         // -> game ends in a tie
         self.state = GameState::Tie;
     }
+}
+
+#[derive(AnchorSerialize, AnchorDeserialize, Clone, PartialEq, Eq)]
+pub enum GameState {
+    Active,
+    Tie,
+    Won { winner: Pubkey },
+}
+
+#[derive(
+    AnchorSerialize, AnchorDeserialize, FromPrimitive, ToPrimitive, Copy, Clone, PartialEq, Eq,
+)]
+pub enum Sign {
+    X,
+    O,
 }
 
 #[derive(AnchorSerialize, AnchorDeserialize)]

@@ -1,6 +1,11 @@
 use anchor_lang::prelude::*;
+use crate::state::game::*;
 
-use crate::state::game::Game;
+pub fn setup_game(ctx: Context<SetupGame>, player_two: Pubkey) -> Result<()> {
+    ctx.accounts
+        .game
+        .start([ctx.accounts.player_one.key(), player_two])
+}
 
 #[derive(Accounts)]
 pub struct SetupGame<'info> {
