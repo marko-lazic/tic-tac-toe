@@ -33,7 +33,7 @@ describe('tic-tac-toe', () => {
   const program = anchor.workspace.TicTacToe as Program<TicTacToe>;
   const programProvider = program.provider as anchor.AnchorProvider;
 
-  it('setup game!', async () => {
+  it('should setup game!', async () => {
     const gameKeypair = anchor.web3.Keypair.generate();
     const playerOne = programProvider.wallet;
     const playerTwo = anchor.web3.Keypair.generate();
@@ -57,7 +57,7 @@ describe('tic-tac-toe', () => {
       .eql([[null, null, null], [null, null, null], [null, null, null]]);
   });
 
-  it('player one wins!', async () => {
+  it('should player one win!', async () => {
     const gameKeypair = anchor.web3.Keypair.generate();
     const playerOne = programProvider.wallet;
     const playerTwo = anchor.web3.Keypair.generate();
